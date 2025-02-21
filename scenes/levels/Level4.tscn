@@ -1,0 +1,111 @@
+[gd_scene load_steps=13 format=3 uid="uid://b25nsta38afj7"]
+
+[ext_resource type="Script" path="res://scenes/PlatformBlue.gd" id="1_hqqa8"]
+[ext_resource type="PackedScene" uid="uid://y5a4e3ajuy2r" path="res://scenes/StonePlatform.tscn" id="2_nrjhb"]
+[ext_resource type="Script" path="res://scenes/PlatformRed.gd" id="3_a0gcj"]
+[ext_resource type="PackedScene" uid="uid://c3k7na16erxus" path="res://scenes/SnowPlatform.tscn" id="4_fg2xc"]
+[ext_resource type="Script" path="res://scenes/ObjectiveArea.gd" id="5_7urqf"]
+[ext_resource type="Texture2D" uid="uid://dcwu8ypraifim" path="res://assets/icon.png" id="6_afunu"]
+[ext_resource type="PackedScene" uid="uid://datfp8kxjrjg" path="res://scenes/BlueShip.tscn" id="7_soigl"]
+[ext_resource type="PackedScene" uid="uid://c5fdm8al13jv5" path="res://scenes/GrassPlatform.tscn" id="8_n04o1"]
+[ext_resource type="Script" path="res://scenes/DeathPlane.gd" id="9_7sdot"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_o7xl4"]
+size = Vector2(138.75, 79)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_2engp"]
+size = Vector2(1365.5, 42)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_vv63a"]
+size = Vector2(42, 809)
+
+[node name="Level4" type="Node2D"]
+
+[node name="PlatformBlue" type="Node2D" parent="."]
+position = Vector2(824, 488)
+script = ExtResource("1_hqqa8")
+
+[node name="StonePlatform" parent="PlatformBlue" instance=ExtResource("2_nrjhb")]
+
+[node name="StonePlatform2" parent="PlatformBlue" instance=ExtResource("2_nrjhb")]
+position = Vector2(70, 0)
+
+[node name="PlatformRed" type="Node2D" parent="."]
+position = Vector2(73, 4)
+script = ExtResource("3_a0gcj")
+
+[node name="SnowPlatform" parent="PlatformRed" instance=ExtResource("4_fg2xc")]
+position = Vector2(159, 308)
+
+[node name="SnowPlatform2" parent="PlatformRed" instance=ExtResource("4_fg2xc")]
+position = Vector2(159, 378)
+
+[node name="PlatformGreen" type="Node2D" parent="."]
+position = Vector2(64, 0)
+scale = Vector2(8, 1)
+
+[node name="GrassPlatform" parent="PlatformGreen" instance=ExtResource("8_n04o1")]
+position = Vector2(52, 456)
+
+[node name="ObjectiveArea" type="Area2D" parent="."]
+position = Vector2(864, 184)
+script = ExtResource("5_7urqf")
+targetLevel = 5
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="ObjectiveArea"]
+position = Vector2(1, 0)
+shape = SubResource("RectangleShape2D_o7xl4")
+
+[node name="Sprite2D" type="Sprite2D" parent="ObjectiveArea"]
+z_index = -1
+texture = ExtResource("6_afunu")
+
+[node name="BlueShip" parent="." instance=ExtResource("7_soigl")]
+position = Vector2(355, 374)
+
+[node name="LevelNumber" type="RichTextLabel" parent="."]
+offset_left = 16.0
+offset_top = 592.0
+offset_right = 149.0
+offset_bottom = 636.0
+theme_override_font_sizes/bold_font_size = 30
+bbcode_enabled = true
+text = "[font=res://assets/fonts/Rodin-Pro-DB.otf][b] Level 4"
+
+[node name="HelpText" type="RichTextLabel" parent="."]
+offset_left = 312.0
+offset_top = 112.0
+offset_right = 705.0
+offset_bottom = 295.0
+theme_override_font_sizes/normal_font_size = 24
+bbcode_enabled = true
+text = "[font=res://assets/fonts/Rodin-Pro-DB.otf]New block type: Grass!
+
+Grass blocks are always static. Use them to move around."
+metadata/_edit_use_anchors_ = true
+
+[node name="DeathPlane" type="Area2D" parent="."]
+script = ExtResource("9_7sdot")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="DeathPlane"]
+position = Vector2(584, 760)
+shape = SubResource("RectangleShape2D_2engp")
+debug_color = Color(0.567237, 0.0500567, 0.0725688, 0.42)
+
+[node name="CollisionShape2D2" type="CollisionShape2D" parent="DeathPlane"]
+position = Vector2(584, -96)
+shape = SubResource("RectangleShape2D_2engp")
+debug_color = Color(0.567237, 0.0500567, 0.0725688, 0.42)
+
+[node name="CollisionShape2D3" type="CollisionShape2D" parent="DeathPlane"]
+position = Vector2(-77, 331.5)
+shape = SubResource("RectangleShape2D_vv63a")
+debug_color = Color(0.568627, 0.0509804, 0.0745098, 0.419608)
+
+[node name="CollisionShape2D4" type="CollisionShape2D" parent="DeathPlane"]
+position = Vector2(1240, 328)
+shape = SubResource("RectangleShape2D_vv63a")
+debug_color = Color(0.568627, 0.0509804, 0.0745098, 0.419608)
+
+[connection signal="body_entered" from="ObjectiveArea" to="ObjectiveArea" method="_on_ObjectiveArea_body_entered"]
+[connection signal="body_entered" from="DeathPlane" to="DeathPlane" method="_on_DeathPlane_body_entered"]

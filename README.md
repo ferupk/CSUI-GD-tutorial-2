@@ -67,3 +67,17 @@ When a node becomes the child of a parent node, its Position attribute will refl
 ![PlatformBlue, showing global position](./docs/global_position.png)
 
 ![StonePlatform2, showing relative position to PlatformBlue](./docs/relative_position.png)
+
+
+## Latihan Mandiri: Membuat Level Baru
+
+Below are a list of things I've implemented to the base project:
+
+- Added new ship type "GreenShip" with different dimensions
+- Added new platform types "Snow" and "Grass"
+- Modified Level 1 and added Levels 2-5
+- Added textual information for mechanics and level numbers
+- Added an external font to use with Rich Text
+- Provided visual cue to ObjectiveArea
+- Implemented system for transitioning between levels through ObjectiveArea
+- Added DeathPlane to restart level when ship goes out of bounds

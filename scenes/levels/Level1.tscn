@@ -1,0 +1,92 @@
+[gd_scene load_steps=10 format=3 uid="uid://cdoksexcakmop"]
+
+[ext_resource type="Script" path="res://scenes/PlatformBlue.gd" id="1_61cng"]
+[ext_resource type="PackedScene" uid="uid://y5a4e3ajuy2r" path="res://scenes/StonePlatform.tscn" id="2_iw1ps"]
+[ext_resource type="PackedScene" uid="uid://datfp8kxjrjg" path="res://scenes/BlueShip.tscn" id="3_2rj2x"]
+[ext_resource type="Script" path="res://scenes/ObjectiveArea.gd" id="4_kt12u"]
+[ext_resource type="Texture2D" uid="uid://dcwu8ypraifim" path="res://assets/icon.png" id="5_p0a72"]
+[ext_resource type="Script" path="res://scenes/DeathPlane.gd" id="6_lpu4o"]
+
+[sub_resource type="RectangleShape2D" id="1"]
+size = Vector2(138.75, 79)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_k3naw"]
+size = Vector2(1365.5, 42)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_pcmsa"]
+size = Vector2(42, 809)
+
+[node name="Level1" type="Node"]
+
+[node name="PlatformBlue" type="Node2D" parent="."]
+position = Vector2(314, 528)
+script = ExtResource("1_61cng")
+
+[node name="StonePlatform" parent="PlatformBlue" instance=ExtResource("2_iw1ps")]
+
+[node name="StonePlatform2" parent="PlatformBlue" instance=ExtResource("2_iw1ps")]
+position = Vector2(70, 0)
+
+[node name="BlueShip" parent="." instance=ExtResource("3_2rj2x")]
+position = Vector2(349, 447)
+
+[node name="ObjectiveArea" type="Area2D" parent="."]
+position = Vector2(357, 104)
+script = ExtResource("4_kt12u")
+targetLevel = 2
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="ObjectiveArea"]
+position = Vector2(1, 0)
+shape = SubResource("1")
+
+[node name="Sprite2D" type="Sprite2D" parent="ObjectiveArea"]
+z_index = -1
+texture = ExtResource("5_p0a72")
+
+[node name="DeathPlane" type="Area2D" parent="."]
+script = ExtResource("6_lpu4o")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="DeathPlane"]
+position = Vector2(584, 760)
+shape = SubResource("RectangleShape2D_k3naw")
+debug_color = Color(0.567237, 0.0500567, 0.0725688, 0.42)
+
+[node name="CollisionShape2D2" type="CollisionShape2D" parent="DeathPlane"]
+position = Vector2(584, -96)
+shape = SubResource("RectangleShape2D_k3naw")
+debug_color = Color(0.567237, 0.0500567, 0.0725688, 0.42)
+
+[node name="CollisionShape2D3" type="CollisionShape2D" parent="DeathPlane"]
+position = Vector2(-77, 331.5)
+shape = SubResource("RectangleShape2D_pcmsa")
+debug_color = Color(0.568627, 0.0509804, 0.0745098, 0.419608)
+
+[node name="CollisionShape2D4" type="CollisionShape2D" parent="DeathPlane"]
+position = Vector2(1240, 328)
+shape = SubResource("RectangleShape2D_pcmsa")
+debug_color = Color(0.568627, 0.0509804, 0.0745098, 0.419608)
+
+[node name="HelpText" type="RichTextLabel" parent="."]
+offset_left = 561.0
+offset_top = 204.0
+offset_right = 954.0
+offset_bottom = 387.0
+theme_override_font_sizes/normal_font_size = 24
+bbcode_enabled = true
+text = "[font=res://assets/fonts/Rodin-Pro-DB.otf]Welcome to the game!
+
+Use the arrow keys to move the stone blocks up and down.
+
+Reach the Godot logo to clear the level."
+
+[node name="LevelNumber" type="RichTextLabel" parent="."]
+offset_left = 16.0
+offset_top = 592.0
+offset_right = 149.0
+offset_bottom = 636.0
+theme_override_font_sizes/bold_font_size = 30
+bbcode_enabled = true
+text = "[font=res://assets/fonts/Rodin-Pro-DB.otf][b] Level 1"
+
+[connection signal="body_entered" from="ObjectiveArea" to="ObjectiveArea" method="_on_ObjectiveArea_body_entered"]
+[connection signal="body_entered" from="DeathPlane" to="DeathPlane" method="_on_DeathPlane_body_entered"]

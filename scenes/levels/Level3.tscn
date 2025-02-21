@@ -1,0 +1,108 @@
+[gd_scene load_steps=12 format=3 uid="uid://b5ywm800h4j3b"]
+
+[ext_resource type="Script" path="res://scenes/PlatformBlue.gd" id="1_pwigc"]
+[ext_resource type="PackedScene" uid="uid://y5a4e3ajuy2r" path="res://scenes/StonePlatform.tscn" id="2_n75xw"]
+[ext_resource type="Script" path="res://scenes/PlatformRed.gd" id="3_l5yyb"]
+[ext_resource type="PackedScene" uid="uid://c3k7na16erxus" path="res://scenes/SnowPlatform.tscn" id="4_wqrpq"]
+[ext_resource type="Script" path="res://scenes/ObjectiveArea.gd" id="5_u4wny"]
+[ext_resource type="Texture2D" uid="uid://dcwu8ypraifim" path="res://assets/icon.png" id="6_scpws"]
+[ext_resource type="PackedScene" uid="uid://datfp8kxjrjg" path="res://scenes/BlueShip.tscn" id="7_o8wjk"]
+[ext_resource type="Script" path="res://scenes/DeathPlane.gd" id="8_2lqj6"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_ngwht"]
+size = Vector2(138.75, 79)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_qhvx6"]
+size = Vector2(1365.5, 42)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_b02b8"]
+size = Vector2(42, 809)
+
+[node name="Level3" type="Node2D"]
+
+[node name="PlatformBlue" type="Node2D" parent="."]
+position = Vector2(272, 434)
+script = ExtResource("1_pwigc")
+
+[node name="StonePlatform" parent="PlatformBlue" instance=ExtResource("2_n75xw")]
+
+[node name="StonePlatform2" parent="PlatformBlue" instance=ExtResource("2_n75xw")]
+position = Vector2(70, 0)
+
+[node name="PlatformBlue2" type="Node2D" parent="."]
+position = Vector2(552, 512)
+script = ExtResource("1_pwigc")
+
+[node name="StonePlatform" parent="PlatformBlue2" instance=ExtResource("2_n75xw")]
+
+[node name="StonePlatform2" parent="PlatformBlue2" instance=ExtResource("2_n75xw")]
+position = Vector2(70, 0)
+
+[node name="PlatformBlue3" type="Node2D" parent="."]
+position = Vector2(832, 584)
+script = ExtResource("1_pwigc")
+
+[node name="StonePlatform" parent="PlatformBlue3" instance=ExtResource("2_n75xw")]
+
+[node name="StonePlatform2" parent="PlatformBlue3" instance=ExtResource("2_n75xw")]
+position = Vector2(70, 0)
+
+[node name="PlatformRed" type="Node2D" parent="."]
+script = ExtResource("3_l5yyb")
+
+[node name="SnowPlatform" parent="PlatformRed" instance=ExtResource("4_wqrpq")]
+position = Vector2(160, 170)
+
+[node name="SnowPlatform2" parent="PlatformRed" instance=ExtResource("4_wqrpq")]
+position = Vector2(160, 240)
+
+[node name="ObjectiveArea" type="Area2D" parent="."]
+position = Vector2(872, 80)
+script = ExtResource("5_u4wny")
+targetLevel = 4
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="ObjectiveArea"]
+position = Vector2(1, 0)
+shape = SubResource("RectangleShape2D_ngwht")
+
+[node name="Sprite2D" type="Sprite2D" parent="ObjectiveArea"]
+z_index = -1
+texture = ExtResource("6_scpws")
+
+[node name="BlueShip" parent="." instance=ExtResource("7_o8wjk")]
+position = Vector2(307, 352)
+
+[node name="LevelNumber" type="RichTextLabel" parent="."]
+offset_left = 16.0
+offset_top = 592.0
+offset_right = 149.0
+offset_bottom = 636.0
+theme_override_font_sizes/bold_font_size = 30
+bbcode_enabled = true
+text = "[font=res://assets/fonts/Rodin-Pro-DB.otf][b] Level 3"
+
+[node name="DeathPlane" type="Area2D" parent="."]
+script = ExtResource("8_2lqj6")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="DeathPlane"]
+position = Vector2(584, 760)
+shape = SubResource("RectangleShape2D_qhvx6")
+debug_color = Color(0.567237, 0.0500567, 0.0725688, 0.42)
+
+[node name="CollisionShape2D2" type="CollisionShape2D" parent="DeathPlane"]
+position = Vector2(584, -96)
+shape = SubResource("RectangleShape2D_qhvx6")
+debug_color = Color(0.567237, 0.0500567, 0.0725688, 0.42)
+
+[node name="CollisionShape2D3" type="CollisionShape2D" parent="DeathPlane"]
+position = Vector2(-77, 331.5)
+shape = SubResource("RectangleShape2D_b02b8")
+debug_color = Color(0.568627, 0.0509804, 0.0745098, 0.419608)
+
+[node name="CollisionShape2D4" type="CollisionShape2D" parent="DeathPlane"]
+position = Vector2(1240, 328)
+shape = SubResource("RectangleShape2D_b02b8")
+debug_color = Color(0.568627, 0.0509804, 0.0745098, 0.419608)
+
+[connection signal="body_entered" from="ObjectiveArea" to="ObjectiveArea" method="_on_ObjectiveArea_body_entered"]
+[connection signal="body_entered" from="DeathPlane" to="DeathPlane" method="_on_DeathPlane_body_entered"]

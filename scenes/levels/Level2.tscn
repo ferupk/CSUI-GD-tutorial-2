@@ -1,0 +1,104 @@
+[gd_scene load_steps=12 format=3 uid="uid://dctkhthlgkmk8"]
+
+[ext_resource type="Script" path="res://scenes/PlatformBlue.gd" id="1_xfs8i"]
+[ext_resource type="PackedScene" uid="uid://y5a4e3ajuy2r" path="res://scenes/StonePlatform.tscn" id="2_uyi3m"]
+[ext_resource type="Script" path="res://scenes/ObjectiveArea.gd" id="4_4pc0u"]
+[ext_resource type="Script" path="res://scenes/PlatformRed.gd" id="4_6wu24"]
+[ext_resource type="PackedScene" uid="uid://c3k7na16erxus" path="res://scenes/SnowPlatform.tscn" id="5_io38a"]
+[ext_resource type="Texture2D" uid="uid://dcwu8ypraifim" path="res://assets/icon.png" id="5_vjgdt"]
+[ext_resource type="PackedScene" uid="uid://cf6irc7p8q2li" path="res://scenes/GreenShip.tscn" id="7_854ro"]
+[ext_resource type="Script" path="res://scenes/DeathPlane.gd" id="8_x7ouq"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_svrso"]
+size = Vector2(138.75, 79)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_g5ycf"]
+size = Vector2(1365.5, 42)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_553gb"]
+size = Vector2(42, 809)
+
+[node name="Level2" type="Node2D"]
+
+[node name="PlatformBlue" type="Node2D" parent="."]
+position = Vector2(260, 565)
+script = ExtResource("1_xfs8i")
+
+[node name="StonePlatform" parent="PlatformBlue" instance=ExtResource("2_uyi3m")]
+
+[node name="StonePlatform2" parent="PlatformBlue" instance=ExtResource("2_uyi3m")]
+position = Vector2(70, 0)
+
+[node name="PlatformRed" type="Node2D" parent="."]
+script = ExtResource("4_6wu24")
+
+[node name="SnowPlatform" parent="PlatformRed" instance=ExtResource("5_io38a")]
+position = Vector2(146, 168)
+
+[node name="SnowPlatform2" parent="PlatformRed" instance=ExtResource("5_io38a")]
+position = Vector2(146, 238)
+
+[node name="ObjectiveArea" type="Area2D" parent="."]
+position = Vector2(529, 477)
+script = ExtResource("4_4pc0u")
+targetLevel = 3
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="ObjectiveArea"]
+position = Vector2(1, 0)
+shape = SubResource("RectangleShape2D_svrso")
+
+[node name="Sprite2D" type="Sprite2D" parent="ObjectiveArea"]
+z_index = -1
+texture = ExtResource("5_vjgdt")
+
+[node name="GreenShip" parent="." instance=ExtResource("7_854ro")]
+position = Vector2(295, 473)
+
+[node name="HelpText" type="RichTextLabel" parent="."]
+offset_left = 673.0
+offset_top = 204.0
+offset_right = 1066.0
+offset_bottom = 387.0
+theme_override_font_sizes/normal_font_size = 24
+bbcode_enabled = true
+text = "[font=res://assets/fonts/Rodin-Pro-DB.otf]New block type: Snow!
+
+Use the arrow keys to move the snow blocks left and right.
+
+Be careful not to fall!"
+metadata/_edit_use_anchors_ = true
+
+[node name="LevelNumber" type="RichTextLabel" parent="."]
+offset_left = 16.0
+offset_top = 592.0
+offset_right = 149.0
+offset_bottom = 636.0
+theme_override_font_sizes/bold_font_size = 30
+bbcode_enabled = true
+text = "[font=res://assets/fonts/Rodin-Pro-DB.otf][b] Level 2"
+
+[node name="DeathPlane" type="Area2D" parent="."]
+script = ExtResource("8_x7ouq")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="DeathPlane"]
+position = Vector2(584, 760)
+shape = SubResource("RectangleShape2D_g5ycf")
+debug_color = Color(0.567237, 0.0500567, 0.0725688, 0.42)
+
+[node name="CollisionShape2D2" type="CollisionShape2D" parent="DeathPlane"]
+position = Vector2(584, -96)
+shape = SubResource("RectangleShape2D_g5ycf")
+debug_color = Color(0.567237, 0.0500567, 0.0725688, 0.42)
+
+[node name="CollisionShape2D3" type="CollisionShape2D" parent="DeathPlane"]
+position = Vector2(-77, 331.5)
+shape = SubResource("RectangleShape2D_553gb")
+debug_color = Color(0.568627, 0.0509804, 0.0745098, 0.419608)
+
+[node name="CollisionShape2D4" type="CollisionShape2D" parent="DeathPlane"]
+position = Vector2(1240, 328)
+shape = SubResource("RectangleShape2D_553gb")
+debug_color = Color(0.568627, 0.0509804, 0.0745098, 0.419608)
+
+[connection signal="body_entered" from="ObjectiveArea" to="ObjectiveArea" method="_on_ObjectiveArea_body_entered"]
+[connection signal="body_entered" from="DeathPlane" to="DeathPlane" method="_on_DeathPlane_body_entered"]

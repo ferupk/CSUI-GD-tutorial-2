@@ -1,0 +1,15 @@
+[gd_scene load_steps=3 format=3 uid="uid://c5fdm8al13jv5"]
+
+[ext_resource type="Texture2D" uid="uid://datu2oniud3tn" path="res://assets/grass.png" id="1_ngjco"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_mucsh"]
+size = Vector2(70.8416, 70.5898)
+
+[node name="GrassPlatform" type="StaticBody2D"]
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture = ExtResource("1_ngjco")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("RectangleShape2D_mucsh")
+debug_color = Color(0.367762, 0.607635, 0.295009, 0.42)

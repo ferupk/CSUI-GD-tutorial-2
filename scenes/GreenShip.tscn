@@ -1,0 +1,17 @@
+[gd_scene load_steps=3 format=3 uid="uid://cf6irc7p8q2li"]
+
+[ext_resource type="Texture2D" uid="uid://3ruxfsvp87ub" path="res://assets/playerShip1_green.png" id="1_hre7g"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_jbe5s"]
+size = Vector2(100.011, 77.4256)
+
+[node name="GreenShip" type="RigidBody2D"]
+lock_rotation = true
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+scale = Vector2(0.75, 1.25)
+texture = ExtResource("1_hre7g")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+scale = Vector2(0.75, 1.25)
+shape = SubResource("RectangleShape2D_jbe5s")
